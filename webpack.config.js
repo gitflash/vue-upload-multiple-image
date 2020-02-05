@@ -6,7 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'vue-upload-multiple-image.js'
+    filename: 'vue-upload-multiple-crop-images.js'
   },
   module: {
     rules: [
