@@ -1,6 +1,6 @@
 <template>
-  <div style="outline: none;">
-    <div class="image-container position-relative text-center" v-if="!images.length">
+  <div style="outline: none;" class="full-width full-height">
+    <div class="image-container position-relative text-center full-width full-height" v-if="!images.length">
       <div class="drag-upload-cover position-absolute" v-if="isDragover" @drop="onDrop">
         <div class="centered full-width text-center text-primary">
           <svg class="icon-drag-drop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M444.5 15C407.7 15 378 44.8 378 81.5s29.8 66.5 66.5 66.5S511 118.2 511 81.5 481.2 15 444.5 15zm29.4 72.4h-23.5l.1 25.9c0 3.2-2.6 5.8-5.8 5.9-3.2 0-5.8-2.6-5.8-5.8l-.1-26h-23.6c-3.2 0-5.8-2.6-5.8-5.8s2.6-5.8 5.8-5.8h23.5l-.1-25.9c0-3.2 2.6-5.8 5.8-5.9 3.2 0 5.8 2.6 5.8 5.8l.1 26h23.6c3.3 0 5.8 2.6 5.8 5.8s-2.6 5.8-5.8 5.8zM199.3 191.3c21.5 0 38.9 17.6 38.9 39.3s-17.4 39.3-38.9 39.3-38.9-17.6-38.9-39.3c0-21.7 17.5-39.3 38.9-39.3zm185.4 201.3H86.3c-6.5 0-11.9-5.3-11.9-11.9v-32.4c0-2.5.7-4.8 2.1-6.9l41.3-58.4c3.7-5.2 10.8-6.5 16.1-3.1l56.4 36.8c4.5 3 10.3 2.5 14.4-1L313 220.1c5.1-4.5 13.1-3.8 17.2 1.7l61.5 79.7c1.6 2 2.5 4.6 2.5 7.2v74.4c0 5.2-4.3 9.5-9.5 9.5zm7.9 117.6h-58.8v-12h58.8v12zm-78.4 0h-58.8v-12h58.8v12zm-78.5 0h-58.8v-12h58.8v12zm-78.4 0H98.4v-12h58.8v12h.1zm-78.5 0H57.7c-14.3 0-27.9-5.4-38.3-15.3l8.3-8.7c8.2 7.8 18.8 12 30.1 12h21.1l-.1 12zm333.6-.1l-.3-12c17.8-.4 33.4-11.5 39.8-28.2l11.2 4.3c-8.1 21.3-28 35.4-50.7 35.9zM6.8 477c-3.2-7.1-4.7-14.7-4.7-22.5v-38.2h12v38.2c0 6.1 1.3 12.1 3.7 17.6l-11 4.9zm459.9-24.1h-12v-58.8h12v58.8zM14.1 396.7h-12v-58.8h12v58.8zm452.6-22.3h-12v-58.8h12v58.8zM14.1 318.3h-12v-58.8h12v58.8zM466.7 296h-12v-58.8h12V296zM14.1 239.8h-12V181h12v58.8zm452.6-22.2h-12v-58.8h12v58.8zM14.1 161.4h-12v-58.8h12v58.8zm2.4-76.1L5.3 81.2C13 59.9 33.4 45.5 56.1 45.5h.2v12h-.2c-17.7 0-33.6 11.2-39.6 27.8zm353.6-27.8h-58.8v-12h58.8v12zm-78.5 0h-58.8v-12h58.8v12zm-78.4 0h-58.8v-12h58.8v12zm-78.5 0H75.9v-12h58.8v12z"></path></svg>
@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="image-container position-relative text-center image-list" v-else>
+    <div class="image-container position-relative text-center image-list full-width full-height" v-else>
       <div class="preview-image full-width position-relative cursor-pointer" @click="openGallery(currentIndexImage)">
         <div class="image-overlay position-relative full-width full-height"></div>
         <div class="image-overlay-details full-width">
@@ -52,6 +52,10 @@
           <a class="text-small mark-text-primary cursor-pointer" @click.prevent="markIsPrimary(currentIndexImage)" v-show="!imageDefault">{{markIsPrimaryText}}</a>
         </div>
         <div class="display-flex">
+          <a class="image-crop display-flex cursor-pointer" @click.prevent="setImage(currentIndexImage)" >
+            <svg class="image-icon-crop" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m496 376.339h-87.662v-256.678c0-8.837-7.164-16-16-16h-256.676v-87.661c0-8.837-7.164-16-16-16s-16 7.163-16 16v87.661h-87.662c-8.836 0-16 7.163-16 16s7.164 16 16 16h87.662v256.678c0 8.837 7.164 16 16 16h256.677v87.661c0 8.837 7.164 16 16 16s16-7.163 16-16v-87.661h87.661c8.836 0 16-7.163 16-16s-7.164-16-16-16zm-360.338 0v-240.678h240.677v240.678z"/></svg>
+          </a>
+
           <label class="image-edit display-flex cursor-pointer" :for="idEdit">
             <svg class="image-icon-edit" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M469.56 42.433C420.927-6.199 382.331-.168 378.087.68l-4.8.96L36.895 338.001 0 512l173.985-36.894 336.431-336.399.941-4.86c.826-4.257 6.65-42.984-41.797-91.414zM41.944 470.057L64.3 364.617c12.448 3.347 31.968 11.255 50.51 29.794 18.96 18.963 27.84 39.986 31.875 53.436l-104.741 22.21zm132.504-41.134c-6.167-16.597-17.199-37.794-36.775-57.371C119 352.88 99.435 342.57 83.739 336.879l155.156-155.15 97.066-97.051c11.069 2.074 34.864 8.95 57.253 31.338 22.708 22.708 30.95 48.358 33.734 60.428l-96.685 96.663-155.815 155.816zm278.41-278.383c-6.167-16.6-17.196-37.8-36.781-57.384-18.669-18.667-38.228-28.977-53.92-34.668l26.118-26.113c8.785.484 30.373 4.87 58.423 32.918l.001.002c28.085 28.074 32.467 49.675 32.946 58.463l-26.787 26.782z"></path></svg>
           </label>
@@ -59,6 +63,8 @@
           <a class="image-delete display-flex cursor-pointer" @click.prevent="deleteImage(currentIndexImage)">
             <svg class="image-icon-delete" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M448 64h-96V0H159.9l.066 64H32v32h32v416h384V96h32V64h-32zM192 32h128v32H192V32zm224 448H96V96h320v384zM192 160h32v256h-32V160zm96 0h32v256h-32V160z"></path></svg>
           </a>
+
+          
         </div>
       </div>
     </div>
@@ -91,6 +97,22 @@
       :showCaption="false"
       >
     </vue-image-lightbox-carousel>
+
+    <b-modal ref="cropperModal" title="" size="xl" hide-footer no-close-on-esc no-close-on-backdrop>
+             <vue-cropper class="w-100 mb-3" ref="cropper" 
+                :guides="true" 
+                :src="imageToCrop"
+                :modal="true" 
+                :zoomable="false" 
+                :min-crop-box-width="728" 
+                :min-crop-box-height="300"
+                :aspect-ratio="728/300"
+                :rotatable="false">
+            </vue-cropper>
+            <button v-if="imageToCrop" @click="applyCropImage(currentIndexImage)" class="btn btn-success">Crop</button>
+            
+        </b-modal>
+        <!-- :src="this.images[this.currentIndexImage].path"  -->
   </div>
 </template>
 
@@ -99,6 +121,14 @@ import { forEach, findIndex, orderBy, cloneDeep } from 'lodash'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import VueImageLightboxCarousel from 'vue-image-lightbox-carousel'
+
+import VueCropper from 'vue-cropperjs';
+import 'cropperjs/dist/cropper.css';
+import { BModal } from 'bootstrap-vue'
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 export default {
 
   name: 'VueUploadMultipleImage',
@@ -106,27 +136,27 @@ export default {
   props: {
     dragText: {
       type: String,
-      default: 'Kéo hình ảnh(nhiều)'
+      default: 'Drag Images'
     },
     browseText: {
       type: String,
-      default: '(hoặc) Chọn'
+      default: 'Browse Files'
     },
     primaryText: {
       type: String,
-      default: 'Mặc định'
+      default: 'Primary Image'
     },
     markIsPrimaryText: {
       type: String,
-      default: 'Đặt làm mặc định'
+      default: 'Mark as Primary Image'
     },
     popupText: {
       type: String,
-      default: 'Hình ảnh này sẽ được hiển thị làm mặc định'
+      default: 'This image is marked as Primary'
     },
     dropText: {
       type: String,
-      default: 'Thả tệp của bạn ở đây ...'
+      default: 'Drop Images'
     },
     accept: {
       type: String,
@@ -165,12 +195,16 @@ export default {
       images: [],
       isDragover: false,
       showLightbox: false,
-      arrLightBox: []
+      arrLightBox: [],
+      imageToCrop: null,
+      
     }
   },
   components: {
     Popper,
-    VueImageLightboxCarousel
+    VueImageLightboxCarousel,
+    VueCropper,
+    BModal
   },
   computed: {
     imagePreview () {
@@ -315,8 +349,39 @@ export default {
         if (this.images.length) {
           this.images[0].highlight = 1
         }
-      }, this.images)
+      }, this.images) // Deactivate prompt on delete
     },
+    // Cropper
+    setImage: function (image) {
+        this.$refs.cropperModal.show()
+        this.imageToCrop = this.images[image].originalPath ? this.images[image].originalPath : this.images[image].path;
+    },
+    applyCropImage: function (imageIndex) {
+
+      let reader = new FileReader()
+      let formData = new FormData()
+      let vm = this;
+      this.$refs.cropper.getCroppedCanvas().toBlob( function (blob) {
+        
+        formData.append('file', blob);
+        reader.onload = (e) => {
+          let dataURI = e.target.result
+      
+          if (vm.images.length && vm.images[imageIndex]) {
+            if (!vm.images[imageIndex].isCropped) vm.images[imageIndex].originalPath = vm.images[imageIndex].path
+            vm.images[imageIndex].path = dataURI
+            vm.images[imageIndex].isCropped = true
+          }
+          
+        }
+
+        reader.readAsDataURL(blob)
+      }, 'image/png', 1);
+
+      this.$emit('edit-image', formData, imageIndex, this.images)
+      this.$refs.cropperModal.hide()
+    },
+    // Gallery
     openGallery(index) {
       this.showLightbox = true
       this.$refs.lightbox.showImage(index)
@@ -419,8 +484,7 @@ export default {
   display: block;
 }
 .image-container {
-  width: 190px;
-  height: 180px;
+  min-height: 180px;
   border: 1px dashed #D6D6D6;
   border-radius: 4px;
   background-color: #fff;
@@ -559,6 +623,17 @@ export default {
   width: 14px;
   fill: #222;
 }
+
+.image-crop {
+  margin-right: 10px;
+}
+
+.image-icon-crop {
+  height: 14px;
+  width: 14px;
+  fill: #222;
+}
+
 .image-list-container {
   max-width: 190px;
   min-height: 50px;
