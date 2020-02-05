@@ -1,7 +1,7 @@
 {
   "name": "@hichem-khial/vue-upload-multiple-crop-images",
   "description": "A Vue.js project",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Hichem KHIAL <khial.ali.hichem@gmail.com>",
   "license": "MIT",
   "main": "src/main.js",
