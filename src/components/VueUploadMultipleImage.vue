@@ -124,10 +124,7 @@
                 :src="imageToCrop"
                 :modal="true"
                 :zoomable="false"
-                :min-crop-box-width="728"
-                :min-crop-box-height="300"
-                :aspect-ratio="728/300"
-                :rotatable="false">
+			 >
             </vue-cropper>
             <button v-if="imageToCrop" @click="applyCropImage(currentIndexImage)" class="btn btn-success">Crop</button>
 
