@@ -44,7 +44,7 @@
 	</div>
 	  
 	  <!-- Actions under image -->
-      <div class="image-bottom display-flex position-absolute full-width align-items-center justify-content-between" :class="!showPrimary && 'justify-content-end'">
+      <div class="image-bottom display-flex full-width align-items-center justify-content-between" :class="!showPrimary && 'justify-content-end'">
 		
 		<!-- Primary Feature -->
         <div class="image-bottom-left display-flex align-items-center" v-if="showPrimary">
