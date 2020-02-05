@@ -215,6 +215,10 @@ export default {
 		type: Number,
 		default: null
 	},
+	cropOnAdd: {
+		type: Boolean,
+		default: false
+	},
 	showCaption: {
 		type: Boolean,
 		default: false
@@ -289,10 +293,16 @@ export default {
           } else {
             this.images.push({name: file.name, path: dataURI, highlight: 0, default: 0})
           }
-          this.$emit('upload-success', formData, this.images.length - 1, this.images)
+		  this.$emit('upload-success', formData, this.images.length - 1, this.images)
+		  
+		  if (this.cropOnAdd && !this.multiple) {
+			  this.setImage(this.images.length - 1)
+		  }
         }
       }
-      reader.readAsDataURL(file)
+	  reader.readAsDataURL(file)
+	  
+
     },
     editImage (file) {
       let reader = new FileReader()
@@ -408,7 +418,7 @@ export default {
         reader.readAsDataURL(blob)
       }, 'image/png', 1);
 
-      this.$emit('edit-image', formData, imageIndex, this.images)
+      this.$emit('crop-success', formData, imageIndex, this.images)
       this.$refs.cropperModal.hide()
     },
     // Gallery

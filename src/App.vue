@@ -8,6 +8,7 @@
       @limit-exceeded="limitExceeded"
       :show-primary="false"
       :show-caption="true"
+      :crop-on-add="true"
       ></vue-upload-multiple-image>
   </div>
 </template>
