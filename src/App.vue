@@ -6,6 +6,8 @@
       @edit-image="editImage"
       @data-change="dataChange"
       @limit-exceeded="limitExceeded"
+      :show-primary="false"
+      :show-caption="true"
       ></vue-upload-multiple-image>
   </div>
 </template>

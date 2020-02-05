@@ -1,5 +1,6 @@
 <template>
   <div style="outline: none;" class="full-width full-height">
+	<!-- Before Upload -->
     <div class="image-container position-relative text-center full-width full-height" v-if="!images.length">
       <div class="drag-upload-cover position-absolute" v-if="isDragover" @drop="onDrop">
         <div class="centered full-width text-center text-primary">
@@ -23,6 +24,7 @@
       </div>
     </div>
 
+	<!-- After Upload -->
     <div class="image-container position-relative text-center image-list full-width full-height" v-else>
       <div class="preview-image full-width position-relative cursor-pointer" @click="openGallery(currentIndexImage)">
         <div class="image-overlay position-relative full-width full-height"></div>
@@ -33,7 +35,18 @@
           <img class="show-img img-responsive" :src="imagePreview">
         </div>
       </div>
+
+	<!-- Captions -->
+	<div class="display-flex align-items-center justify-content-center" v-if="showCaption">
+		<div class="form-group">
+			<input id="caption" type="text" v-model="images[currentIndexImage].caption" class="form-control" placeholder="Image Description">
+		</div>
+	</div>
+	  
+	  <!-- Actions under image -->
       <div class="image-bottom display-flex position-absolute full-width align-items-center justify-content-between" :class="!showPrimary && 'justify-content-end'">
+		
+		<!-- Primary Feature -->
         <div class="image-bottom-left display-flex align-items-center" v-if="showPrimary">
           <div class="display-flex align-items-center" v-show="imageDefault">
             <span class="image-primary display-flex align-items-center">
@@ -51,24 +64,27 @@
           </div>
           <a class="text-small mark-text-primary cursor-pointer" @click.prevent="markIsPrimary(currentIndexImage)" v-show="!imageDefault">{{markIsPrimaryText}}</a>
         </div>
+
+		<!-- Crop and Delete and Edit(deleted) -->
         <div class="display-flex">
           <a class="image-crop display-flex cursor-pointer" @click.prevent="setImage(currentIndexImage)" >
             <svg class="image-icon-crop" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><path d="m496 376.339h-87.662v-256.678c0-8.837-7.164-16-16-16h-256.676v-87.661c0-8.837-7.164-16-16-16s-16 7.163-16 16v87.661h-87.662c-8.836 0-16 7.163-16 16s7.164 16 16 16h87.662v256.678c0 8.837 7.164 16 16 16h256.677v87.661c0 8.837 7.164 16 16 16s16-7.163 16-16v-87.661h87.661c8.836 0 16-7.163 16-16s-7.164-16-16-16zm-360.338 0v-240.678h240.677v240.678z"/></svg>
           </a>
 
-          <label class="image-edit display-flex cursor-pointer" :for="idEdit">
+          <!-- <label class="image-edit display-flex cursor-pointer" :for="idEdit">
             <svg class="image-icon-edit" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M469.56 42.433C420.927-6.199 382.331-.168 378.087.68l-4.8.96L36.895 338.001 0 512l173.985-36.894 336.431-336.399.941-4.86c.826-4.257 6.65-42.984-41.797-91.414zM41.944 470.057L64.3 364.617c12.448 3.347 31.968 11.255 50.51 29.794 18.96 18.963 27.84 39.986 31.875 53.436l-104.741 22.21zm132.504-41.134c-6.167-16.597-17.199-37.794-36.775-57.371C119 352.88 99.435 342.57 83.739 336.879l155.156-155.15 97.066-97.051c11.069 2.074 34.864 8.95 57.253 31.338 22.708 22.708 30.95 48.358 33.734 60.428l-96.685 96.663-155.815 155.816zm278.41-278.383c-6.167-16.6-17.196-37.8-36.781-57.384-18.669-18.667-38.228-28.977-53.92-34.668l26.118-26.113c8.785.484 30.373 4.87 58.423 32.918l.001.002c28.085 28.074 32.467 49.675 32.946 58.463l-26.787 26.782z"></path></svg>
-          </label>
+          </label> -->
 
           <a class="image-delete display-flex cursor-pointer" @click.prevent="deleteImage(currentIndexImage)">
             <svg class="image-icon-delete" xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><path d="M448 64h-96V0H159.9l.066 64H32v32h32v416h384V96h32V64h-32zM192 32h128v32H192V32zm224 448H96V96h320v384zM192 160h32v256h-32V160zm96 0h32v256h-32V160z"></path></svg>
           </a>
 
-          
+
         </div>
       </div>
     </div>
 
+	<!-- Add images and select image -->
     <div class="image-list-container display-flex flex-wrap" v-if="images.length && multiple">
       <div class="image-list-item position-relative cursor-pointer" :class="image.highlight && 'image-highlight'" v-for="(image, index) in images" :key="index" @click="changeHighlight(index)">
         <div class="centered">
@@ -83,11 +99,14 @@
         </div>
       </div>
     </div>
+
+	<!-- Shadow Inputs -->
     <div>
-      <input class="display-none" :id="idUpload" @change="uploadFieldChange" name="images" :multiple="multiple" :accept="accept" type="file">
-      <input class="display-none" :id="idEdit" @change="editFieldChange" name="image" :accept="accept" type="file">
+      <input class="display-none" :id="idUpload" @change="uploadFieldChange" :name="fieldName" :multiple="multiple" :accept="accept" type="file">
+      <!-- <input class="display-none" :id="idEdit" @change="editFieldChange" name="image" :accept="accept" type="file"> -->
     </div>
 
+	<!-- Lightbox Component -->
     <vue-image-lightbox-carousel
       ref="lightbox"
       :show="showLightbox"
@@ -98,21 +117,21 @@
       >
     </vue-image-lightbox-carousel>
 
-    <b-modal ref="cropperModal" title="" size="xl" hide-footer no-close-on-esc no-close-on-backdrop>
-             <vue-cropper class="w-100 mb-3" ref="cropper" 
-                :guides="true" 
+	<!-- Cropper inside modal -->
+    <b-modal ref="cropperModal" title="" size="xl" hide-footer no-close-on-esc no-close-on-backdrop v-if="showCropper">
+             <vue-cropper class="w-100 mb-3" ref="cropper"
+                :guides="true"
                 :src="imageToCrop"
-                :modal="true" 
-                :zoomable="false" 
-                :min-crop-box-width="728" 
+                :modal="true"
+                :zoomable="false"
+                :min-crop-box-width="728"
                 :min-crop-box-height="300"
                 :aspect-ratio="728/300"
                 :rotatable="false">
             </vue-cropper>
             <button v-if="imageToCrop" @click="applyCropImage(currentIndexImage)" class="btn btn-success">Crop</button>
-            
+
         </b-modal>
-        <!-- :src="this.images[this.currentIndexImage].path"  -->
   </div>
 </template>
 
@@ -177,25 +196,36 @@ export default {
     maxImage: {
       type: Number,
       default: 5
-    },
+	},
+	fieldName: {
+		type: String,
+		default: 'images'
+	},
     idUpload: {
       type: String,
       default: 'image-upload'
     },
-    idEdit: {
-      type: String,
-      default: 'image-edit'
-    }
+    // idEdit: {
+    //   type: String,
+    //   default: 'image-edit'
+    // },
+    showCropper: {
+      type: Boolean,
+      default: true
+	},
+	showCaption: {
+		type: Boolean,
+		default: false
+	}
   },
   data () {
     return {
       currentIndexImage: 0,
-      images: [],
+	  images: [],
       isDragover: false,
       showLightbox: false,
       arrLightBox: [],
-      imageToCrop: null,
-      
+      imageToCrop: null
     }
   },
   components: {
@@ -293,21 +323,21 @@ export default {
         document.getElementById(this.idUpload).value = []
       }
     },
-    editFieldChange (e) {
-      let files = e.target.files || e.dataTransfer.files
-      if (!files.length) {
-        return false
-      }
-      if(!this.isValidNumberOfImages(files.length)){
-        return false
-      }
-      forEach(files, (value, index) => {
-        this.editImage(value)
-      })
-      if (document.getElementById(this.idEdit)) {
-        document.getElementById(this.idEdit).value = ''
-      }
-    },
+    // editFieldChange (e) {
+    //   let files = e.target.files || e.dataTransfer.files
+    //   if (!files.length) {
+    //     return false
+    //   }
+    //   if(!this.isValidNumberOfImages(files.length)){
+    //     return false
+    //   }
+    //   forEach(files, (value, index) => {
+    //     this.editImage(value)
+    //   })
+    //   if (document.getElementById(this.idEdit)) {
+    //     document.getElementById(this.idEdit).value = ''
+    //   }
+    // },
     changeHighlight (currentIndex) {
       this.currentIndexImage = currentIndex
       let arr = this.images
@@ -360,17 +390,17 @@ export default {
       let formData = new FormData()
       let vm = this;
       this.$refs.cropper.getCroppedCanvas().toBlob( function (blob) {
-        
+
         formData.append('file', blob);
         reader.onload = (e) => {
           let dataURI = e.target.result
-      
+
           if (vm.images.length && vm.images[imageIndex]) {
             if (!vm.images[imageIndex].isCropped) vm.images[imageIndex].originalPath = vm.images[imageIndex].path
             vm.images[imageIndex].path = dataURI
             vm.images[imageIndex].isCropped = true
           }
-          
+
         }
 
         reader.readAsDataURL(blob)
@@ -482,7 +512,7 @@ export default {
   display: block;
 }
 .image-container {
-  min-height: 180px;
+  min-height: 220px;
   border: 1px dashed #D6D6D6;
   border-radius: 4px;
   background-color: #fff;
@@ -550,7 +580,7 @@ export default {
   border: 1px solid #D6D6D6;
 }
 .preview-image {
-  height: 140px;
+  height: 160px;
   padding: 5px;
   border-radius: 15px;
   box-sizing: border-box;
@@ -583,8 +613,8 @@ export default {
   height: auto;
 }
 .show-img {
-  max-height: 100px;
-  max-width: 140px;
+  max-height: 150px;
+  max-width: 210px;
   display: block;
   vertical-align: middle;
 }
