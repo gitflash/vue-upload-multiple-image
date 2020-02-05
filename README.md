@@ -21,8 +21,8 @@ yarn dev
 Install the package:
 
 ```
-npm install vue-upload-multiple-image
-yarn add vue-upload-multiple-image
+npm install vue-upload-multiple-crop-images
+yarn add vue-upload-multiple-crop-images
 ```
 
 Then import it in your project
@@ -35,7 +35,7 @@ Vue.use(VueLazyload)
 ```
 
 ```javascript
-import VueUploadMultipleImage from 'vue-upload-multiple-image'
+import VueUploadMultipleImage from 'vue-upload-multiple-crop-images'
 
 export default {
   components: {
@@ -44,16 +44,16 @@ export default {
 }
 ```
 
-#### Browser global
+<!-- #### Browser global
 
 ```html
 <script src="path/to/vue.js"></script>
 <script src="path/to/dist/vue-upload-multiple-image.js"></script>
-```
+``` -->
 
-## Usage
+<!-- ## Usage
 
-You can simply view [App.vue](https://github.com/lekhang2512/vue-image-lightbox-carousel/blob/master/src/App.vue) to see how to use **vue-upload-multiple-image**
+You can simply view [App.vue](https://github.com/lekhang2512/vue-image-lightbox-carousel/blob/master/src/App.vue) to see how to use **vue-upload-multiple-image** -->
 
 How to use:
 ```html
@@ -68,6 +68,7 @@ How to use:
 ```javascript
 [
   {
+    originalPath: 'http://example.com/image.jpg',
     path: 'http://example.com/image.jpg',
     default: 1,
     highlight: 1,
@@ -184,37 +185,37 @@ a {
     <tr>
       <td>dragText</td>
       <td>String</td>
-      <td>Kéo hình ảnh(nhiều)</td>
+      <td>Drag Images</td>
       <td>Drag Text</td>
     </tr>
     <tr>
       <td>browseText</td>
       <td>String</td>
-      <td>(hoặc) Chọn</td>
+      <td>Browse Files</td>
       <td>Browse Text</td>
     </tr>
     <tr>
       <td>primaryText</td>
       <td>String</td>
-      <td>Mặc định</td>
+      <td>Primary Image</td>
       <td>Primary Text</td>
     </tr>
     <tr>
       <td>markIsPrimaryText</td>
       <td>String</td>
-      <td>Đặt làm mặc định</td>
+      <td>Mark As Primary Image</td>
       <td>Set default image</td>
     </tr>
     <tr>
       <td>popupText</td>
       <td>String</td>
-      <td>Hình ảnh này sẽ được hiển thị làm mặc định</td>
+      <td>This Image is Marked as Primary</td>
       <td>Description default image</td>
     </tr>
     <tr>
       <td>dropText</td>
       <td>String</td>
-      <td>Thả tệp của bạn ở đây ...</td>
+      <td>Drop Images</td>
       <td>Drag and drop</td>
     </tr>
     <tr>
@@ -292,3 +293,5 @@ a {
 - [lodash](https://github.com/lodash/lodash/)
 - [vue-image-lightbox-carousel](https://github.com/lekhang2512/vue-image-lightbox-carousel)
 - [vue-popperjs](https://github.com/RobinCK/vue-popper#readme)
+- [vue-bootstrap](https://github.com/bootstrap-vue/bootstrap-vue)
+- [vue-cropperjs](https://github.com/Agontuk/vue-cropperjs)
