@@ -124,7 +124,8 @@
                 :src="imageToCrop"
                 :modal="true"
                 :zoomable="false"
-			 >
+                :aspect-ratio="cropperAspectRatio"
+            >
             </vue-cropper>
             <button v-if="imageToCrop" @click="applyCropImage(currentIndexImage)" class="btn btn-success">Crop</button>
 
@@ -209,6 +210,10 @@ export default {
     showCropper: {
       type: Boolean,
       default: true
+	},
+	cropperAspectRatio: {
+		type: Number,
+		default: null
 	},
 	showCaption: {
 		type: Boolean,
