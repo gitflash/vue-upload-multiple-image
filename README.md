@@ -1,12 +1,8 @@
 
 
 # vue-upload-multiple-image
-A simple upload multiple image component for Vuejs
-[NPM Package](https://www.npmjs.com/package/vue-upload-multiple-image)
-
-[Demo!](https://codepen.io/lekhang2512/pen/qJmQaZ)
-
-![enter image description here](https://raw.githubusercontent.com/lekhang2512/vue-upload-multiple-image/master/src/assets/demo.png)
+A simple upload multiple images and cropping component for Vuejs
+[NPM Package](https://www.npmjs.com/package/@hichem-khial/vue-upload-multiple-crop-images)
 
 ## Development (NPM / Yarn)
 ```
@@ -44,16 +40,12 @@ export default {
 }
 ```
 
-<!-- #### Browser global
+#### Browser global
 
 ```html
 <script src="path/to/vue.js"></script>
 <script src="path/to/dist/vue-upload-multiple-image.js"></script>
-``` -->
-
-<!-- ## Usage
-
-You can simply view [App.vue](https://github.com/lekhang2512/vue-image-lightbox-carousel/blob/master/src/App.vue) to see how to use **vue-upload-multiple-image** -->
+```
 
 How to use:
 ```html
