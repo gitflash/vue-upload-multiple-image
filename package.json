@@ -1,8 +1,8 @@
 {
-  "name": "vue-upload-multiple-image",
+  "name": "@hichem-khial/vue-upload-multiple-crop-images",
   "description": "A Vue.js project",
-  "version": "1.1.4",
-  "author": "Lee Khang <lekhang2512@gmail.com>",
+  "version": "1.0.0",
+  "author": "Hichem KHIAL <khial.ali.hichem@gmail.com>",
   "license": "MIT",
   "main": "src/main.js",
   "scripts": {
@@ -36,5 +36,25 @@
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitflash/vue-upload-multiple-image.git"
+  },
+  "keywords": [
+    "upload-image",
+    "image",
+    "upload-multi",
+    "images",
+    "crop",
+    "cropper",
+    "multi-upload",
+    "multiple",
+    "upload",
+    "tool"
+  ],
+  "bugs": {
+    "url": "https://github.com/gitflash/vue-upload-multiple-image/issues"
+  },
+  "homepage": "https://github.com/gitflash/vue-upload-multiple-image#readme"
 }
