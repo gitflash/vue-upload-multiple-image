@@ -397,12 +397,11 @@ export default {
         this.imageToCrop = this.images[image].originalPath ? this.images[image].originalPath : this.images[image].path;
     },
     applyCropImage: function (imageIndex) {
-
-      let reader = new FileReader()
-      let formData = new FormData()
       let vm = this;
-      this.$refs.cropper.getCroppedCanvas().toBlob( function (blob) {
 
+      this.$refs.cropper.getCroppedCanvas().toBlob( function (blob) {
+        let reader = new FileReader()
+        let formData = new FormData()
         formData.append('file', blob);
         reader.onload = (e) => {
           let dataURI = e.target.result
@@ -413,13 +412,14 @@ export default {
             vm.images[imageIndex].isCropped = true
           }
 
+          vm.$emit('crop-success', formData, imageIndex, vm.images)
+          vm.$refs.cropperModal.hide()
         }
 
         reader.readAsDataURL(blob)
-      }, 'image/png', 1);
 
-      this.$emit('crop-success', formData, imageIndex, this.images)
-      this.$refs.cropperModal.hide()
+        
+      }, 'image/png', 1);
     },
     // Gallery
     openGallery(index) {

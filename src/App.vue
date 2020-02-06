@@ -6,9 +6,11 @@
       @edit-image="editImage"
       @data-change="dataChange"
       @limit-exceeded="limitExceeded"
+      @crop-success="cropImageSuccess"
       :show-primary="false"
       :show-caption="true"
       :crop-on-add="true"
+      :multiple="false"
       ></vue-upload-multiple-image>
   </div>
 </template>
@@ -31,6 +33,9 @@ export default {
       // axios.post('http://gostore.gostore-api.test/api/items/upload', formData).then(response => {
       //   console.log(response)
       // })
+    },
+    cropImageSuccess(formData, index, fileList) {
+      console.log('data', formData, index, fileList)
     },
     beforeRemove (index, done, fileList) {
       // console.log('index', index, fileList)
