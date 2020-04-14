@@ -39,8 +39,16 @@
 	<!-- Captions -->
 	<div class="display-flex align-items-center justify-content-center" v-if="showCaption">
 		<div class="form-group">
-			<input id="caption" type="text" v-model="images[currentIndexImage].caption" class="form-control" placeholder="Image Description">
+			
+
 		</div>
+
+    <div class="input-group">
+      <input id="caption" type="text" v-model="images[currentIndexImage].caption" class="form-control" placeholder="Image Description">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" v-on:click.prevent="saveCaption(currentIndexImage)">Save</button>
+      </div>
+    </div>
 	</div>
 	  
 	  <!-- Actions under image -->
@@ -231,7 +239,8 @@ export default {
       isDragover: false,
       showLightbox: false,
       arrLightBox: [],
-      imageToCrop: null
+      imageToCrop: null,
+      caption: '',
     }
   },
   components: {
@@ -293,11 +302,12 @@ export default {
           } else {
             this.images.push({name: file.name, path: dataURI, highlight: 0, default: 0})
           }
-		  this.$emit('upload-success', formData, this.images.length - 1, this.images)
 		  
-		  if (this.cropOnAdd && !this.multiple) {
-			  this.setImage(this.images.length - 1)
-		  }
+          if (this.cropOnAdd && !this.multiple) {
+            this.setImage(this.images.length - 1)
+          } else {
+		        this.$emit('upload-success', formData, this.images.length - 1, this.images)
+          }
         }
       }
 	  reader.readAsDataURL(file)
@@ -440,6 +450,10 @@ export default {
       } else {
         return true
       }
+    },
+    saveCaption(imageIndex) {
+      let vm = this;
+      vm.$emit('caption-save', vm.images[imageIndex].caption, imageIndex, vm.images)
     }
   },
   watch: {
@@ -461,6 +475,9 @@ export default {
       event.stopPropagation()
       event.preventDefault()
       this.isDragover = false
+    })
+    this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
+      console.log('Modal is about to be hidden')
     })
   },
   created () {
